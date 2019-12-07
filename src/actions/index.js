@@ -5,6 +5,7 @@ export const EDIT_TODO = "EDIT_TODO";
 export const CANCEL_EDIT_TODO = "CANCEL_EDIT_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const CHANGE_FILTER = "CHANGE_FILTER";
+export const SEARCH_TODO = "SEARCH_TODO";
 
 export const FILTERS = {
   ALL: "ALL",

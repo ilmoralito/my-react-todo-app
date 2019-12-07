@@ -6,16 +6,22 @@ import {
   editTodo,
   cancelEditTodo,
   updateTodo,
-  changeFilter
+  changeFilter,
+  searchTodo
 } from "../actionTypes";
 import reducer from "../reducers";
 
 import Form from "./Form";
 import List from "./List";
 import Filter from "./Filter";
+import Search from "./Search";
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, { todos: [], filter: "ALL" });
+  const [state, dispatch] = useReducer(reducer, {
+    todos: [],
+    filter: "ALL",
+    searchTerm: ""
+  });
 
   const submitHandler = task => dispatch(addTodo(task));
 
@@ -31,12 +37,18 @@ const App = () => {
 
   const changeFilterHandler = filter => dispatch(changeFilter(filter));
 
+  const searchHandler = searchTerm => dispatch(searchTodo(searchTerm));
+
   return (
     <div>
       <Form onSubmit={submitHandler} />
+      {state.todos.length > 0 && (
+        <Search onSearch={searchHandler}>Search</Search>
+      )}
       <List
         todos={state.todos}
         filter={state.filter}
+        searchTerm={state.searchTerm}
         onToggleTodo={toggleTodoHandler}
         onDeleteTodo={deleteTodoHandler}
         onEditTodo={editTodoHandler}

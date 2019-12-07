@@ -5,7 +5,8 @@ import {
   EDIT_TODO,
   CANCEL_EDIT_TODO,
   UPDATE_TODO,
-  CHANGE_FILTER
+  CHANGE_FILTER,
+  SEARCH_TODO
 } from "../actions";
 import uuid from "uuid/v4";
 
@@ -25,6 +26,8 @@ const reducer = (state, action) => {
       return applyUpdateTodo(state, action);
     case CHANGE_FILTER:
       return applyChangeFilter(state, action);
+    case SEARCH_TODO:
+      return applySearchTodo(state, action);
     default:
       return state;
   }
@@ -76,6 +79,11 @@ const applyUpdateTodo = (state, action) => ({
 const applyChangeFilter = (state, action) => ({
   ...state,
   filter: action.filter
+});
+
+const applySearchTodo = (state, action) => ({
+  ...state,
+  searchTerm: action.searchTerm
 });
 
 export default reducer;

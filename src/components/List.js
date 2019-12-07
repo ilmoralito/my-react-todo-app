@@ -1,28 +1,38 @@
 import React, { useState } from "react";
 import { FILTERS } from "../actions";
 
+const itsDone = todo => todo.done;
+
+const itsNotDone = todo => !todo.done;
+
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
     case FILTERS.DONE:
-      return todos.filter(todo => todo.done);
+      return todos.filter(itsDone);
     case FILTERS.ACTIVE:
-      return todos.filter(todo => !todo.done);
+      return todos.filter(itsNotDone);
     case FILTERS.ALL:
     default:
       return todos;
   }
 };
 
+const search = searchTerm => todo =>
+  todo.task.toLowerCase().includes(searchTerm.toLowerCase());
+
 const List = ({
   todos,
   filter,
+  searchTerm,
   onToggleTodo,
   onDeleteTodo,
   onEditTodo,
   onCancelEditTodo,
   onUpdateTodo
 }) => {
-  const todoList = getVisibleTodos(todos, filter);
+  let todoList = getVisibleTodos(todos, filter);
+
+  todoList = todoList.filter(search(searchTerm));
 
   return (
     <table>
